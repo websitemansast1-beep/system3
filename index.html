@@ -1,0 +1,133 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>نظام مركز النساء والتوليد</title><style>
+:root{--bg:#ffffff;--tx:#0f1f4d;--mut:#5b6b8f;--bd:#cfdcf7;--pr:#1d4ed8;--lt:#e8f0ff;--cd:#fff;--on:#fff;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--tx);font:16px "Segoe UI",Tahoma,"Noto Sans Arabic",Arial,sans-serif}
+.app{display:flex;min-height:100vh}nav{width:150px;background:var(--cd);border-inline-end:1px solid var(--bd);padding:12px 8px;position:sticky;top:0;height:100vh;flex-shrink:0}
+nav button{display:block;width:100%;background:none;border:0;color:var(--tx);padding:12px 6px;border-radius:10px;font:inherit;cursor:pointer;margin-bottom:4px}nav button.on{background:var(--pr);color:var(--on)}
+main{flex:1;padding:16px;min-width:0;max-width:980px}h2,h3{color:var(--pr);margin:0 0 10px}
+.cd{background:var(--cd);border:1px solid var(--bd);border-radius:14px;padding:14px;margin-bottom:12px}.mut{color:var(--mut)}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:12px}.g .cd{margin:0}.g b{display:block;font-size:22px;color:var(--pr)}
+.b{display:inline-block;background:var(--pr);color:var(--on);border:2px solid var(--pr);border-radius:10px;padding:9px 14px;font:inherit;cursor:pointer;text-decoration:none}.b.o{background:var(--cd);color:var(--pr)}.b.s{padding:4px 9px;font-size:13px}
+input,select,textarea{background:var(--cd);color:var(--tx);border:1px solid var(--bd);border-radius:10px;padding:9px;font:inherit;width:100%;min-width:0}
+label{display:block;font-size:13px;color:var(--mut);margin-bottom:9px}label input,label select,label textarea{margin-top:3px}
+.r{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px}.r>*{flex:1;min-width:110px}.r>.b{flex:0 0 auto}
+.tw{overflow-x:auto}table{width:100%;border-collapse:collapse}th,td{padding:7px;text-align:start;border-bottom:1px solid var(--bd);white-space:nowrap}th{color:var(--mut);font-size:13px}
+.tg{display:inline-block;background:var(--lt);color:var(--pr);border-radius:20px;padding:2px 10px;font-size:12px;font-weight:600;margin:2px}.tg.h{background:var(--pr);color:var(--on)}.w{font-weight:700;text-decoration:underline}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}.ck{display:flex;gap:8px;align-items:center;color:var(--tx);font-size:15px}.ck input{width:auto}
+.m{position:fixed;inset:0;background:#0008;display:none;align-items:center;justify-content:center;padding:10px;z-index:50}.m.on{display:flex}.bx{background:var(--cd);border-radius:14px;padding:14px;width:100%;max-width:720px;max-height:92vh;overflow:auto}
+.pp{border-top:8px solid var(--pr);padding:10px}.pp h2{margin:0}.pm{background:var(--lt);border-radius:8px;padding:8px;margin:8px 0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}.pp pre{font:inherit;white-space:pre-wrap;margin:3px 0}
+#t{position:fixed;bottom:84px;inset-inline:0;margin:auto;width:max-content;max-width:90%;background:var(--pr);color:var(--on);padding:9px 15px;border-radius:10px;display:none;z-index:99}
+@media(max-width:800px){.app{display:block}nav{position:fixed;bottom:0;inset-inline:0;top:auto;width:100%;height:auto;display:flex;padding:4px 2px calc(4px + env(safe-area-inset-bottom,0px));z-index:40;border-top:1px solid var(--bd)}nav button{flex:1;font-size:11px;padding:6px 1px;margin:0}main{padding:12px 12px 90px}.f2{grid-template-columns:1fr}}
+@media print{nav,main,.np{display:none!important}.m{position:static;background:none;display:block;padding:0}.bx{max-height:none}}
+nav{background:var(--pr);border-inline-end:0}nav button{color:#fff}nav button.on{background:#fff;color:var(--pr);font-weight:700}
+.b.o{background:#fff}.cd{box-shadow:0 1px 3px #1d4ed814}th{background:var(--lt)}
+@media(max-width:800px){nav{border-top:0}}
+</style></head><body><div class="app"><nav id="nav"></nav><main id="main"></main></div><div class="m" id="m"><div class="bx" id="mb"></div></div><div id="t"></div>
+<script>
+const K='ob2';let db;try{db=JSON.parse(localStorage.getItem(K))}catch(e){}
+db=db||{c:{name:'مركز النساء والتوليد',tel:''},pts:[],preg:[],vis:[],apt:[],dep:[],inv:[],seq:1};
+const sv=()=>{try{localStorage.setItem(K,JSON.stringify(db))}catch(e){tt('تعذر الحفظ')}};
+const $=i=>document.getElementById(i),nid=()=>db.seq++,f=n=>Number(n||0).toLocaleString('en-US'),
+esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),
+G=(a,i)=>db[a].find(x=>x.id==i)||{},
+td=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')},
+U=s=>new Date(s+'T00:00:00Z'),addD=(s,n)=>new Date(U(s).getTime()+n*864e5).toISOString().slice(0,10),df=(a,b)=>Math.round((U(a)-U(b))/864e5),
+tt=x=>{const e=$('t');e.textContent=x;e.style.display='block';clearTimeout(tt.i);tt.i=setTimeout(()=>e.style.display='none',2600)},
+mo=h=>{$('mb').innerHTML=h;$('m').classList.add('on')},cl=()=>$('m').classList.remove('on');
+$('m').onclick=e=>{if(e.target.id=='m')cl()};
+const wa=(p,t)=>{let n=String(p||'').replace(/\D/g,'');if(n[0]=='0')n='20'+n.slice(1);return'https://wa.me/'+n+'?text='+encodeURIComponent(t)};
+const pd=o=>o.pays.reduce((a,x)=>a+x.a,0);
+/* الحمل: جدول WHO لثمانية زيارات */
+const W=[12,20,26,30,34,36,38,40],RK=['قيصرية سابقة','ضغط مرتفع','سكر','توأم','نزيف','إجهاض متكرر','ولادة مبكرة سابقة','أمراض قلب أو كلى أو غدة'];
+const edd=p=>addD(p.lmp,280),ga=(p,d)=>df(d||td(),p.lmp),gt=n=>Math.floor(n/7)+' أسبوع'+(n%7?' و'+n%7+' يوم':'');
+const rk=p=>{const t=G('pts',p.pt),r=[...(p.rk||[])];if(t.age>35)r.push('عمر فوق 35');if(t.age&&t.age<18)r.push('عمر تحت 18');if(/-$/.test(t.bl||''))r.push('Rh سلبي');return r};
+const bpH=b=>{const m=String(b||'').match(/(\d+)\s*[\/\-]\s*(\d+)/);return m&&(+m[1]>=140||+m[2]>=90)};
+const nxt=p=>{const i=db.vis.filter(v=>v.preg==p.id).length;return i<W.length?{w:W[i],d:addD(p.lmp,W[i]*7)}:null};
+/* نموذج عام */
+let FH,FF;
+function FM(ti,fs,v,cb,ex=''){FH=cb;FF=fs;mo(`<h3>${ti}</h3><div class="f2">${fs.map(([k,l,t,o])=>{const x=v[k]??'';
+if(t=='area')return`<label style="grid-column:1/-1">${l}<textarea id="f_${k}" rows="3">${esc(x)}</textarea></label>`;
+if(t=='sel')return`<label>${l}<select id="f_${k}">${o.map(y=>{const[a,b]=Array.isArray(y)?y:[y,y];return`<option value="${esc(a)}" ${a==x?'selected':''}>${esc(b)}</option>`}).join('')}</select></label>`;
+if(t=='chk')return`<div style="grid-column:1/-1"><b>${l}</b>${o.map(y=>`<label class="ck"><input type="checkbox" name="f_${k}" value="${esc(y)}" ${(x||[]).includes(y)?'checked':''}>${esc(y)}</label>`).join('')}</div>`;
+return`<label>${l}<input id="f_${k}" type="${t||'text'}" value="${esc(x)}" ${t=='number'?'step="any" inputmode="decimal"':''}></label>`}).join('')}</div><div class="r"><button class="b" onclick="FS()">حفظ</button><button class="b o" onclick="cl()">إلغاء</button>${ex}</div>`)}
+function FS(){const o={};for(const[k,,t]of FF){if(t=='chk')o[k]=[...document.querySelectorAll(`#mb input[name="f_${k}"]:checked`)].map(x=>x.value);else{const v=$('f_'+k).value.trim();o[k]=t=='number'?(v===''||isNaN(+v)?null:+v):v}}FH(o)}
+function put(a,id,o,after){if(id)Object.assign(G(a,id),o);else{o.id=nid();db[a].push(o)}sv();cl();(after||rd)()}
+const dl=(a,id,after)=>{if(confirm('تأكيد الحذف؟')){db[a]=db[a].filter(x=>x.id!=id);sv();cl();(after||rd)()}};
+const dB=(a,id,af)=>id?`<button class="b o" onclick="dl('${a}',${id},${af||'null'})">حذف</button>`:'';
+const hd=()=>`<div class="pp"><h2>${esc(db.c.name)}</h2><div class="mut">${esc(db.c.tel)}</div></div>`;
+const pbar=(x='')=>`<div class="r np">${x}<button class="b o" onclick="print()">🖨 طباعة / PDF</button><button class="b o" onclick="cl()">إغلاق</button></div>`;
+/* التنقل */
+let tab='h',S={d:td()},X=null;
+const T=[['h','🏠','الرئيسية'],['p','👩','المريضات'],['a','📅','الحجوزات'],['i','🧾','الفواتير'],['d','🏥','الأقسام']];
+const go=t=>{tab=t;rd()};
+function rd(){$('nav').innerHTML=T.map(t=>`<button class="${t[0]==tab?'on':''}" onclick="go('${t[0]}')">${t[1]}<br>${t[2]}</button>`).join('');({h:vh,p:vp,a:va,i:vi,d:vd})[tab]();scrollTo(0,0)}
+/* الرئيسية */
+function vh(){const d=td(),ap=db.apt.filter(a=>a.d==d),ac=db.preg.filter(p=>p.st=='a'),
+cash=db.inv.reduce((s,o)=>s+o.pays.filter(x=>x.d==d).reduce((a,x)=>a+x.a,0),0),
+due=ac.map(p=>({p,n:nxt(p)})).filter(x=>x.n&&x.n.d<=addD(d,7)).sort((a,b)=>a.n.d<b.n.d?-1:1),
+sn=ac.filter(p=>df(edd(p),d)<=30&&df(edd(p),d)>=-7),
+pend=db.inv.filter(o=>o.l.some(l=>(l.k=='l'&&l.val==null)||(l.k=='r'&&!l.rep))).length;
+$('main').innerHTML=`<div class="r"><button class="b" onclick="go('p');ptF()">👩 مريضة جديدة</button><button class="b o" onclick="apF()">📅 حجز</button><button class="b o" onclick="X=null;go('i')">🧾 فاتورة</button></div>
+${db.dep.length?'':'<div class="cd">ابدأ بـ <button class="b s" onclick="seed()">تحميل الأقسام والخدمات الأساسية</button> ثم عدّل الأسعار من «الأقسام».</div>'}
+<div class="g"><div class="cd"><span class="mut">حجوزات اليوم</span><b>${ap.length}</b></div><div class="cd"><span class="mut">المحصّل اليوم</span><b>${f(cash)}</b></div><div class="cd"><span class="mut">حوامل حالياً</span><b>${ac.length}</b></div><div class="cd"><span class="mut">عالية الخطورة</span><b>${ac.filter(p=>rk(p).length).length}</b></div><div class="cd"><span class="mut">نتائج مطلوبة</span><b>${pend}</b></div></div>
+<div class="cd tw"><b>زيارات حمل مستحقة خلال أسبوع</b><table>${due.map(x=>`<tr><td>${esc(G('pts',x.p.pt).name)}</td><td>أسبوع ${x.n.w}</td><td>${x.n.d}</td><td><a class="b o s" target="_blank" rel="noopener" href="${wa(G('pts',x.p.pt).tel,'أهلاً '+G('pts',x.p.pt).name+' تذكير بزيارة المتابعة قرابة '+x.n.d+' في '+db.c.name)}">📲</a></td></tr>`).join('')||'<tr><td class="mut">لا يوجد</td></tr>'}</table></div>
+<div class="cd tw"><b>ولادات متوقعة خلال 30 يوم</b><table>${sn.map(p=>`<tr><td>${esc(G('pts',p.pt).name)}</td><td>${edd(p)}</td><td>${gt(ga(p))}</td><td>${rk(p).length?'<span class="tg h">خطورة</span>':''}</td><td><button class="b o s" onclick="pgV(${p.id})">الحمل</button></td></tr>`).join('')||'<tr><td class="mut">لا يوجد</td></tr>'}</table></div>`}
+function seed(){const A=[['عيادة نساء وتوليد',[['كشف',300,'v'],['استشارة / متابعة',150,'v']]],['سونار وأشعة',[['سونار حمل',250,'r'],['سونار 4D',500,'r'],['سونار مهبلي',250,'r'],['أشعة على الرحم والأنابيب',800,'r']]],['المعمل',[['تحليل حمل HCG',150,'l','mIU/mL','0-5'],['هيموجلوبين',60,'l','g/dL','11-15'],['سكر صائم',50,'l','mg/dL','70-100'],['TSH',150,'l','µIU/mL','0.4-4'],['برولاكتين',200,'l','ng/mL','4-25']]],['إجراءات',[['مسحة عنق الرحم',400,'v'],['تركيب لولب',500,'v']]]];
+A.forEach(a=>db.dep.push({id:nid(),n:a[0],s:a[1].map(s=>({id:nid(),n:s[0],p:s[1],k:s[2],u:s[3]||'',r:s[4]||''}))}));sv();rd();tt('تم — عدّل الأسعار والمدى الطبيعي حسب مركزك')}
+/* المريضات */
+const PF=[['name','الاسم'],['tel','الموبايل'],['age','العمر','number'],['bl','فصيلة الدم','sel',['','A+','A-','B+','B-','AB+','AB-','O+','O-']],['hist','تاريخ مرضي / حساسية / عمليات','area']];
+function vp(){$('main').innerHTML=`<h2>المريضات</h2><div class="r"><input id="q" placeholder="بحث بالاسم أو الرقم" oninput="pl()"><button class="b" onclick="ptF()">+ مريضة</button></div><div class="cd tw" id="pl"></div>`;pl()}
+function pl(){const q=($('q')||{}).value||'';$('pl').innerHTML='<table>'+db.pts.filter(p=>(p.name+p.tel).includes(q)).map(p=>{const a=db.preg.find(x=>x.pt==p.id&&x.st=='a');return`<tr><td>${esc(p.name)}<br><span class="mut">${esc(p.tel)}</span></td><td>${a?'حامل '+gt(ga(a))+(rk(a).length?' <span class="tg h">خطورة</span>':''):''}</td><td><button class="b s" onclick="pf(${p.id})">الملف</button></td></tr>`}).join('')+'</table>'}
+function ptF(id){FM(id?'تعديل مريضة':'مريضة جديدة',PF,id?G('pts',id):{},o=>{if(!o.name)return tt('اكتب الاسم');put('pts',id,o,()=>pf(id||db.pts[db.pts.length-1].id))},dB('pts',id,'vp'))}
+function pf(id){tab='p';const p=G('pts',id),pg=db.preg.filter(x=>x.pt==id),V=db.vis.filter(v=>v.pt==id).sort((a,b)=>a.d<b.d?1:-1),O=db.inv.filter(o=>o.pt==id).reverse();
+$('nav').innerHTML=T.map(t=>`<button class="${t[0]=='p'?'on':''}" onclick="go('${t[0]}')">${t[1]}<br>${t[2]}</button>`).join('');
+$('main').innerHTML=`<button class="b o s" onclick="go('p')">→ رجوع</button><div class="cd" style="margin-top:10px"><h2>${esc(p.name)}</h2><p class="mut">${esc(p.tel)} ${p.age?'— '+p.age+' سنة':''} ${p.bl?'— '+esc(p.bl):''}${p.hist?'<br>📝 '+esc(p.hist):''}</p>
+<div class="r"><button class="b s" onclick="vF(${id},0)">+ كشف</button><button class="b s" onclick="prF(${id})">+ حمل</button><button class="b o s" onclick="X={pt:${id},l:[],ds:0,pd:0};go('i')">+ فاتورة</button><button class="b o s" onclick="ptF(${id})">تعديل</button><a class="b o s" target="_blank" rel="noopener" href="${wa(p.tel,'أهلاً '+p.name+' من '+db.c.name)}">📲</a></div></div>
+<div class="cd"><b>الحمل</b>${pg.map(x=>`<div style="border-top:1px solid var(--bd);padding:7px 0"><span class="tg ${x.st=='a'?'h':''}">${{a:'حالي',d:'ولادة',x:'إجهاض'}[x.st]}</span> EDD ${edd(x)} ${x.st=='a'?'— '+gt(ga(x)):''} ${rk(x).map(r=>`<span class="tg">${esc(r)}</span>`).join('')} <button class="b o s" onclick="pgV(${x.id})">التفاصيل</button></div>`).join('')||'<p class="mut">لا يوجد</p>'}</div>
+<div class="cd tw"><b>الكشوفات</b><table>${V.map(v=>`<tr><td>${v.d}</td><td>${v.preg?'متابعة حمل':'كشف'}</td><td>${esc(v.dx||v.cp)}</td><td><button class="b o s" onclick="rxV(${v.id})">روشتة</button> <button class="b o s" onclick="vF(${id},${v.preg||0},${v.id})">تعديل</button></td></tr>`).join('')||'<tr><td class="mut">لا يوجد</td></tr>'}</table></div>
+<div class="cd tw"><b>الفواتير والنتائج</b><table>${O.map(o=>`<tr><td>#${o.no}</td><td>${o.d}</td><td>${f(o.tot)}</td><td class="${o.tot>pd(o)?'w':''}">${f(o.tot-pd(o))}</td><td><button class="b o s" onclick="recV(${o.id})">إيصال</button> <button class="b o s" onclick="resF(${o.id})">النتائج</button></td></tr>`).join('')||'<tr><td class="mut">لا يوجد</td></tr>'}</table></div>`}
+function vF(pt,pg,id){const v=id?G('vis',id):{d:td()},anc=!!pg;
+FM(id?'تعديل كشف':anc?'متابعة حمل':'كشف جديد',[['d','التاريخ','date'],...(anc?[['wt','الوزن كجم','number'],['bp','الضغط (120/80)'],['fh','ارتفاع الرحم سم','number'],['fhr','نبض الجنين','number'],['ur','بول','sel',['','سلبي','+','++','+++']],['ed','وذمة','sel',['','لا يوجد','خفيفة','متوسطة','شديدة']],['pr','وضع الجنين','sel',['','رأس','مقعد','مستعرض']]]:[]),['cp','الشكوى'],['ex','الفحص','area'],['dx','التشخيص'],['rx','الروشتة (سطر لكل دواء)','area'],['next','موعد المتابعة','date']],v,o=>{if(!o.d)return tt('اكتب التاريخ');o.pt=pt;o.preg=pg||0;const h=anc&&bpH(o.bp);put('vis',id,o,()=>{pf(pt);tt(h?'⚠ الضغط مرتفع — راجع الحالة فوراً':'تم الحفظ')})},dB('vis',id,`()=>pf(${pt})`))}
+function prF(pt,id){const x=id?G('preg',id):{st:'a',rk:[]};FM(id?'تعديل الحمل':'حمل جديد',[['lmp','تاريخ آخر دورة FUM (أو الاستنتاج من السونار)','date'],['par','ولادات سابقة','number'],['ab','إجهاضات سابقة','number'],['st','الحالة','sel',[['a','حالي'],['d','ولادة'],['x','إجهاض']]],['rk','عوامل الخطورة','chk',RK],['nt','ملاحظات','area']],x,o=>{if(!o.lmp)return tt('اكتب تاريخ آخر دورة');o.pt=pt;put('preg',id,o,()=>pgV(id||db.preg[db.preg.length-1].id))},dB('preg',id,`()=>pf(${pt})`))}
+function pgV(id){const x=G('preg',id),p=G('pts',x.pt),V=db.vis.filter(v=>v.preg==id).sort((a,b)=>a.d<b.d?-1:1),r=rk(x),g=ga(x);
+mo(`<div class="pp">${hd()}<h3 style="margin-top:10px">كارت متابعة الحمل</h3><div class="pm"><div>المريضة: <b>${esc(p.name)}</b></div><div>FUM ${x.lmp}</div><div>EDD <b>${edd(x)}</b></div></div>
+${x.st=='a'?`<p>العمر الحملي: <b>${gt(g)}</b> — الثلث ${g<98?'الأول':g<196?'الثاني':'الثالث'}</p>`:''}${r.length?`<p>⚠ ${r.map(y=>`<span class="tg h">${esc(y)}</span>`).join('')}</p>`:''}
+<div class="tw"><table><tr><th>الزيارة (WHO)</th><th>الموعد التقريبي</th><th>الحالة</th></tr>${W.map((w,i)=>`<tr><td>${i+1} — أسبوع ${w}</td><td>${addD(x.lmp,w*7)}</td><td>${V.length>i?'✔ تمت':''}</td></tr>`).join('')}</table></div>
+<p class="mut">جدول WHO: ثماني زيارات (12، 20، 26، 30، 34، 36، 38، 40)، وسونار واحد على الأقل قبل الأسبوع 24. يمكن زيادة الزيارات حسب الحالة.</p>
+<div class="tw"><table><tr><th>التاريخ</th><th>أسبوع</th><th>وزن</th><th>ضغط</th><th>رحم</th><th>نبض</th><th>بول</th><th>ملاحظات</th></tr>${V.map(v=>`<tr class="${bpH(v.bp)?'w':''}"><td>${v.d}</td><td>${Math.floor(ga(x,v.d)/7)}</td><td>${v.wt??''}</td><td>${esc(v.bp)}${bpH(v.bp)?' ⚠':''}</td><td>${v.fh??''}</td><td>${v.fhr??''}</td><td>${esc(v.ur)}</td><td>${esc(v.dx||v.cp)}</td></tr>`).join('')}</table></div></div>
+${pbar(`<button class="b" onclick="vF(${x.pt},${id})">+ متابعة</button><button class="b o" onclick="prF(${x.pt},${id})">تعديل</button>`)}`)}
+function rxV(id){const v=G('vis',id),p=G('pts',v.pt);mo(`<div class="pp">${hd()}<div class="pm"><div>المريضة: <b>${esc(p.name)}</b></div><div>${v.d}</div></div>${v.dx?`<p><b>التشخيص:</b> ${esc(v.dx)}</p>`:''}<h3>Rx</h3><pre>${esc(v.rx)||'—'}</pre>${v.next?`<p><b>المتابعة:</b> ${v.next}</p>`:''}</div>${pbar()}`)}
+/* الحجوزات */
+function va(){const L=db.apt.filter(a=>a.d==S.d).sort((a,b)=>a.t<b.t?-1:1);$('main').innerHTML=`<h2>الحجوزات</h2><div class="r"><input type="date" value="${S.d}" onchange="S.d=this.value;va()"><button class="b" onclick="apF()">+ حجز</button></div><div class="cd tw"><table>${L.map(a=>{const p=G('pts',a.pt);return`<tr><td>${esc(a.t)}</td><td>${esc(p.name)}</td><td>${esc(a.ty)}</td><td><a class="b o s" target="_blank" rel="noopener" href="${wa(p.tel,'أهلاً '+p.name+' تذكير بموعدك في '+db.c.name+' يوم '+a.d+' الساعة '+a.t)}">📲</a> <button class="b s" onclick="vF(${a.pt},0)">كشف</button> <button class="b o s" onclick="apF(${a.id})">تعديل</button></td></tr>`}).join('')||'<tr><td class="mut">لا حجوزات</td></tr>'}</table></div>`}
+function apF(id){if(!db.pts.length)return tt('أضف مريضة أولاً');FM(id?'تعديل حجز':'حجز جديد',[['pt','المريضة','sel',db.pts.map(p=>[p.id,p.name])],['d','التاريخ','date'],['t','الساعة','time'],['ty','نوع الزيارة']],id?G('apt',id):{d:S.d,t:'12:00'},o=>{if(!o.d||!o.t)return tt('اكتب التاريخ والساعة');o.pt=+o.pt;S.d=o.d;put('apt',id,o,()=>go('a'))},dB('apt',id,'()=>go("a")'))}
+/* الفواتير */
+function vi(){if(!X)X={pt:'',l:[],ds:0,pd:0};const tot=Math.max(0,X.l.reduce((a,l)=>a+l.p,0)-X.ds);
+$('main').innerHTML=`<h2>فاتورة جديدة</h2><div class="cd"><label>المريضة<select onchange="X.pt=+this.value"><option value="">اختر</option>${db.pts.map(p=>`<option value="${p.id}" ${p.id==X.pt?'selected':''}>${esc(p.name)}</option>`).join('')}</select></label>
+<div class="r"><select id="sv"><option value="">اختر خدمة</option>${db.dep.map(d=>`<optgroup label="${esc(d.n)}">${d.s.map(s=>`<option value="${s.id}">${esc(s.n)} — ${f(s.p)}</option>`).join('')}</optgroup>`).join('')}</select><button class="b" onclick="ad()">+ إضافة</button></div>
+<table>${X.l.map((l,i)=>`<tr><td>${esc(l.n)}</td><td>${f(l.p)}</td><td><button class="b o s" onclick="X.l.splice(${i},1);vi()">✕</button></td></tr>`).join('')||'<tr><td class="mut">لم تضف خدمات</td></tr>'}</table>
+<div class="r"><label>خصم<input type="number" value="${X.ds}" onchange="X.ds=+this.value||0;vi()"></label><label>المدفوع<input type="number" value="${X.pd}" onchange="X.pd=+this.value||0;vi()"></label></div>
+<p>الإجمالي: <b>${f(tot)}</b> — المتبقي: <b>${f(tot-X.pd)}</b></p><div class="r"><button class="b" onclick="bs()">حفظ الفاتورة</button><button class="b o" onclick="X.pd=${tot};vi()">دفع كامل</button></div></div>
+<div class="cd tw"><b>السجل</b><table>${db.inv.slice().reverse().map(o=>`<tr><td>#${o.no}</td><td>${o.d}</td><td>${esc(G('pts',o.pt).name)}</td><td class="${o.tot>pd(o)?'w':''}">${f(o.tot-pd(o))}</td><td><button class="b o s" onclick="recV(${o.id})">إيصال</button> <button class="b o s" onclick="resF(${o.id})">النتائج</button>${o.tot>pd(o)?` <button class="b o s" onclick="colF(${o.id})">تحصيل</button>`:''}</td></tr>`).join('')||'<tr><td class="mut">لا فواتير</td></tr>'}</table></div>`}
+function ad(){const id=$('sv').value;if(!id)return tt('اختر خدمة');let s,d;db.dep.forEach(x=>x.s.forEach(y=>{if(y.id==id){s=y;d=x}}));X.l.push({n:s.n,dp:d.n,p:s.p,k:s.k,u:s.u,r:s.r,val:null,rep:''});vi()}
+function bs(){if(!X.pt)return tt('اختر المريضة');if(!X.l.length)return tt('أضف خدمات');const tot=Math.max(0,X.l.reduce((a,l)=>a+l.p,0)-X.ds);if(X.pd>tot)return tt('المدفوع أكبر من الإجمالي');
+const o={id:nid(),no:db.inv.reduce((m,x)=>Math.max(m,x.no),0)+1,d:td(),pt:X.pt,l:X.l,ds:X.ds,tot,pays:X.pd?[{a:X.pd,d:td()}]:[]};db.inv.push(o);sv();X=null;vi();recV(o.id)}
+function colF(id){const o=G('inv',id);FM('تحصيل — فاتورة #'+o.no,[['a','المبلغ (المتبقي '+f(o.tot-pd(o))+')','number']],{a:o.tot-pd(o)},x=>{if(!(x.a>0)||x.a>o.tot-pd(o))return tt('مبلغ غير صحيح');o.pays.push({a:x.a,d:td()});sv();cl();rd()})}
+function recV(id){const o=G('inv',id),p=G('pts',o.pt);mo(`<div class="pp">${hd()}<h3>إيصال #${o.no}</h3><div class="pm"><div>المريضة: <b>${esc(p.name)}</b></div><div>${o.d}</div></div><div class="tw"><table>${o.l.map(l=>`<tr><td>${esc(l.n)}</td><td>${esc(l.dp)}</td><td>${f(l.p)}</td></tr>`).join('')}</table></div><p>الخصم: ${f(o.ds)} — الإجمالي: <b>${f(o.tot)} ج.م</b><br>المدفوع: ${f(pd(o))} — المتبقي: <b>${f(o.tot-pd(o))}</b></p></div>${pbar(o.l.some(l=>l.k!='v')?`<button class="b o" onclick="resF(${id})">النتائج</button>`:'')}`)}
+const fl=l=>{const m=String(l.r||'').match(/([\d.]+)\s*[-–]\s*([\d.]+)/),v=parseFloat(l.val);return!m||isNaN(v)?'':v<+m[1]?'↓':v>+m[2]?'↑':''};
+function resF(id){const o=G('inv',id),L=o.l.map((l,i)=>[l,i]).filter(([l])=>l.k!='v');if(!L.length)return tt('لا توجد أشعة أو تحاليل في الفاتورة');
+mo(`<h3>نتائج #${o.no} — ${esc(G('pts',o.pt).name)}</h3>${L.map(([l,i])=>`<div class="cd"><b>${esc(l.n)}</b> <span class="mut">${l.k=='l'?esc(l.u)+(l.r?' — الطبيعي '+esc(l.r):''):''}</span>${l.k=='r'?`<textarea id="r${i}" rows="5" placeholder="التقرير والانطباع">${esc(l.rep)}</textarea>`:`<input id="r${i}" value="${esc(l.val??'')}" placeholder="النتيجة">`}</div>`).join('')}<div class="r"><button class="b" onclick="resS(${id})">حفظ وعرض التقرير</button><button class="b o" onclick="cl()">إلغاء</button></div>`)}
+function resS(id){const o=G('inv',id);o.l.forEach((l,i)=>{if(l.k=='r')l.rep=$('r'+i).value;else if(l.k=='l'){const v=$('r'+i).value.trim();l.val=v===''?null:v}});sv();const p=G('pts',o.pt);
+const tx=`*${db.c.name}*\nنتائج ${p.name} — ${o.d}\n\n`+o.l.filter(l=>l.k!='v').map(l=>l.k=='r'?`🔹 ${l.n}\n${l.rep}`:`▪️ ${l.n}: ${l.val??'—'} ${l.u} ${fl(l)}`).join('\n\n');
+mo(`<div class="pp">${hd()}<h3>تقرير النتائج</h3><div class="pm"><div>المريضة: <b>${esc(p.name)}</b></div><div>${o.d}</div></div>${o.l.filter(l=>l.k=='r').map(l=>`<p><b>${esc(l.n)}</b></p><pre>${esc(l.rep)||'—'}</pre>`).join('')}${o.l.some(l=>l.k=='l')?`<div class="tw"><table><tr><th>التحليل</th><th>النتيجة</th><th></th><th>الوحدة</th><th>الطبيعي</th></tr>${o.l.filter(l=>l.k=='l').map(l=>`<tr class="${fl(l)?'w':''}"><td>${esc(l.n)}</td><td>${esc(l.val??'—')}</td><td>${fl(l)}</td><td>${esc(l.u)}</td><td>${esc(l.r)||'—'}</td></tr>`).join('')}</table></div>`:''}</div>${pbar(`<a class="b" target="_blank" rel="noopener" href="${wa(p.tel,tx)}">📲 واتساب</a>`)}`)}
+/* الأقسام (قابلة للإضافة: أشعة، أسنان، علاج طبيعي...) */
+const KD=[['v','كشف أو إجراء (بدون نتيجة)'],['r','تقرير نصي (أشعة، سونار)'],['l','قيمة رقمية (تحليل)']];
+function vd(){$('main').innerHTML=`<h2>الأقسام والخدمات</h2><div class="r"><button class="b" onclick="dpF()">+ قسم جديد</button><button class="b o" onclick="db.dep.length?svF():tt('أضف قسماً أولاً')">+ خدمة</button></div>
+${db.dep.map(d=>`<div class="cd tw"><b>${esc(d.n)}</b> <button class="b o s" onclick="dpF(${d.id})">تعديل</button><table>${d.s.map(s=>`<tr><td>${esc(s.n)}</td><td>${f(s.p)}</td><td><span class="tg">${{v:'كشف',r:'تقرير',l:'تحليل'}[s.k]}</span></td><td><button class="b o s" onclick="svF(${s.id})">تعديل</button></td></tr>`).join('')||'<tr><td class="mut">لا خدمات</td></tr>'}</table></div>`).join('')}
+<div class="cd"><b>بيانات المركز</b><label>الاسم<input value="${esc(db.c.name)}" onchange="db.c.name=this.value;sv()"></label><label>الموبايل<input value="${esc(db.c.tel)}" onchange="db.c.tel=this.value;sv()"></label></div>
+<div class="cd"><b>نسخة احتياطية</b><p class="mut">البيانات حساسة ومحفوظة في هذا المتصفح فقط. انسخ النص واحفظه في مكان آمن بانتظام.</p><div class="r"><button class="b" onclick="bk()">⬇ نسخ</button><button class="b o" onclick="rs()">⬆ استرجاع</button></div></div>`}
+function dpF(id){FM(id?'تعديل قسم':'قسم جديد',[['n','اسم القسم (أشعة، أسنان، علاج طبيعي...)']],id?G('dep',id):{},o=>{if(!o.n)return tt('اكتب الاسم');if(id)G('dep',id).n=o.n;else db.dep.push({id:nid(),n:o.n,s:[]});sv();cl();rd()},id?`<button class="b o" onclick="if(confirm('حذف القسم وخدماته؟')){db.dep=db.dep.filter(x=>x.id!=${id});sv();cl();rd()}">حذف</button>`:'')}
+function svF(id){let s={},dp;db.dep.forEach(d=>d.s.forEach(y=>{if(y.id==id){s=y;dp=d}}));FM(id?'تعديل خدمة':'خدمة جديدة',[['n','اسم الخدمة'],['dp','القسم','sel',db.dep.map(d=>[d.id,d.n])],['p','السعر','number'],['k','نوع النتيجة','sel',KD],['u','الوحدة (للتحاليل)'],['r','المدى الطبيعي (مثال 11-15)']],{...s,dp:dp?dp.id:''},o=>{if(!o.n)return tt('اكتب الاسم');const n={id:id||nid(),n:o.n,p:o.p||0,k:o.k,u:o.u,r:o.r};if(id)dp.s=dp.s.filter(y=>y.id!=id);G('dep',o.dp).s.push(n);sv();cl();rd()},id?`<button class="b o" onclick="dp_${id}()">حذف</button>`:'');if(id)window['dp_'+id]=()=>{if(confirm('تأكيد الحذف؟')){dp.s=dp.s.filter(y=>y.id!=id);sv();cl();rd()}}}
+function bk(){mo(`<h3>نسخة احتياطية</h3><label><textarea rows="7" readonly onclick="this.select()">${esc(JSON.stringify(db))}</textarea></label><button class="b" onclick="cl()">تمام</button>`)}
+function rs(){mo(`<h3>استرجاع</h3><p>سيستبدل كل البيانات الحالية.</p><label>الصق النسخة<textarea id="bt" rows="6"></textarea></label><div class="r"><button class="b" onclick="dr()">استرجاع</button><button class="b o" onclick="cl()">إلغاء</button></div>`)}
+function dr(){try{const d=JSON.parse($('bt').value);if(!d.pts||!d.preg||!d.dep)throw 0;db=d;sv();cl();go('h');tt('تم الاسترجاع')}catch(e){tt('النسخة غير صحيحة')}}
+rd();
+</script></body></html>

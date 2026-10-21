@@ -1,0 +1,25 @@
+{
+  "name": "ob-center",
+  "productName": "نظام مركز النساء والتوليد",
+  "version": "1.0.0",
+  "description": "نظام إدارة مركز نساء وتوليد",
+  "main": "main.js",
+  "author": "OB Center",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win --x64 --publish never"
+  },
+  "devDependencies": {
+    "electron": "31.7.7",
+    "electron-builder": "24.13.3"
+  },
+  "build": {
+    "appId": "com.obcenter.app",
+    "productName": "OB Center",
+    "files": ["main.js", "index.html"],
+    "win": { "target": ["nsis", "portable"] },
+    "nsis": { "oneClick": false, "allowToChangeInstallationDirectory": true },
+    "artifactName": "${productName}-${version}-${target}.${ext}"
+  }
+}
