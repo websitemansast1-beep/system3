@@ -1,8 +1,7 @@
 {
   "name": "ob-center",
-  "productName": "نظام مركز النساء والتوليد",
   "version": "1.0.0",
-  "description": "نظام إدارة مركز نساء وتوليد",
+  "description": "OB GYN Center Management System",
   "main": "main.js",
   "author": "OB Center",
   "license": "UNLICENSED",
@@ -19,7 +18,11 @@
     "productName": "OB Center",
     "files": ["main.js", "index.html"],
     "win": { "target": ["nsis", "portable"] },
-    "nsis": { "oneClick": false, "allowToChangeInstallationDirectory": true },
-    "artifactName": "${productName}-${version}-${target}.${ext}"
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "artifactName": "OB-Center-Setup-${version}.${ext}"
+    },
+    "portable": { "artifactName": "OB-Center-Portable-${version}.${ext}" }
   }
 }
